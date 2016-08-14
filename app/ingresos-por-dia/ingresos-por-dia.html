@@ -48,7 +48,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Dinero obtenido:</label>
                                 <div class="col-sm-8">
-                                    <input id="total_dia" class="form-control" type="text" ng-model="vm.ingresos.total_dia" disabled>
+                                    <input id="total_dia" class="form-control" type="text" value="{{vm.ingresos.total_dia | currency : '$ ' : 0}}" disabled>
                                 </div>
                             </div>
                         </div>

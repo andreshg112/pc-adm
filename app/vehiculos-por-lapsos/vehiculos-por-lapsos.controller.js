@@ -3,148 +3,45 @@
 
     angular
         .module('app')
-        .controller('HorariosController', HorariosController);
+        .controller('VehiculosPorLapsosController', VehiculosPorLapsosController);
 
-    HorariosController.$inject = ['HorariosService', 'MateriasService', 'TutoresService'];
+    VehiculosPorLapsosController.$inject = ['VehiculosPorLapsosService', 'ParqueaderosService'];
 
-    function HorariosController(HorariosService, MateriasService, TutoresService) {
-        console.log("Entró a HorariosController");
+    function VehiculosPorLapsosController(VehiculosPorLapsosService, ParqueaderosService) {
         var vm = this;
         var options = {
-            namespace: 'counseling',
+            namespace: 'pc-adm',
             storages: ['session']
         };
         var basil = new window.Basil(options);
+        var user;
 
         //Declaraciones de variables públicas en orden alfabético.
-        vm.dias = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
-        vm.horarios = [];
-        vm.eliminar = eliminar;
-        vm.enviarFormulario = enviarFormulario;
-        vm.getNombreCompletoTutor = getNombreCompletoTutor;
-        vm.estaModificando = false;
+        vm.consultarPorLapsos = consultarPorLapsos;
         vm.limpiar = limpiar;
-        vm.materias = [];
-        vm.activarModificar = activarModificar;
+        vm.parqueaderos = [];
+        vm.vehiculosPorLapsos = [];
 
         //Funciones, en orden alfabético
         function activate() {
-            if (basil.get('user').tipo_usuario != 'administrador') {
+            if (basil.get('user').rol != 'admin') {
                 location.href = '#/';
             } else {
-                vm.estaModificando = false;
+                user = basil.get('user');
                 vm.limpiar();
-                cargarHorarios();
-                cargarMaterias();
-                cargarTutores();
+                cargarParqueaderos();
             }
         }
 
-        function activarModificar(horario) {
-            vm.estaModificando = true;
-            vm.horario = angular.copy(horario);
-        }
-
-        function cargarHorarios() {
-            HorariosService.getAll()
+        function cargarParqueaderos() {
+            ParqueaderosService.getAll(user.id_usuario, user.token)
                 .then(function(response) {
-                    vm.horarios = response.data;
-                    if (vm.horarios.length == 0) {
-                        alertify.error('No hay registros.');
-                    }
-                })
-                .catch(function(error) {
-                    console.log(error);
-                    alertify.error(error.statusText);
-                });
-        }
-
-        function cargarMaterias() {
-            MateriasService.getAll()
-                .then(function(response) {
-                    vm.materias = response.data;
-                    if (vm.materias.length == 0) {
-                        alertify.error('No se han registrado materias.');
-                    }
-                })
-                .catch(function(error) {
-                    console.log(error);
-                    alertify.error(error.statusText);
-                });
-        }
-
-        function cargarTutores() {
-            TutoresService.getAll()
-                .then(function(response) {
-                    vm.tutores = response.data.result;
-                    if (vm.tutores.length == 0) {
-                        alertify.error('No se han registrado tutores.');
-                    }
-                })
-                .catch(function(error) {
-                    console.log(error);
-                    alertify.error(error.statusText);
-                });
-        }
-
-        function eliminar(registro) {
-            alertify.confirm("¿Desea eliminar esta asesoría?",
-                function() {
-                    HorariosService.delete(registro)
-                        .then(function(response) {
-                            console.log(response);
-                            activate();
-                            alertify.success(response.data.mensaje);
-                        })
-                        .catch(function(error) {
-                            console.log(error);
-                            alertify.error(error.statusText);
-                        });
-                },
-                function() {
-                    //Si presiona Cancel.
-                });
-        }
-
-        function getNombreCompletoTutor(tutor) {
-            //return tutor.primer_nombre + ' ' + tutor.segundo_nombre + ' ' + tutor.primer_apellido + ' ' + tutor.segundo_apellido;
-            return getNombreCompletoUser(tutor);
-        }
-
-        function getNombreCompletoUser(user) {
-            var nombreCompleto = user.primer_nombre;
-            nombreCompleto += user.segundo_nombre != null && user.segundo_nombre != "" ? " " + user.segundo_nombre : "";
-            nombreCompleto += " " + user.primer_apellido;
-            nombreCompleto += user.segundo_apellido != null && user.segundo_apellido != "" ? " " + user.segundo_apellido : "";
-            return nombreCompleto;
-        }
-
-        function enviarFormulario() {
-            vm.horario.hora_inicio = $('#hora_inicio').val();
-            vm.horario.hora_fin = $('#hora_fin').val();
-            console.log(vm.horario);
-            var promesa;
-            if (vm.estaModificando) {
-                //Si está modificando (actualiando, editando), entonces hace un put.
-                promesa = HorariosService.put(vm.horario);
-            } else {
-                //Si está registrando uno nuevo, hace un post.
-                promesa = HorariosService.post(vm.horario);
-            }
-            promesa.then(function(response) {
-                    console.log(response);
-                    if (response.data.result) {
-                        alertify.success(response.data.mensaje);
-                        activate();
-                    } else if (response.data.validator) {
-                        alertify.error(response.data.mensaje);
-                        response.data.validator.forEach(function(element) {
-                            alertify.error(element);
-                        }, this);
+                    vm.parqueaderos = response.data.reporte;
+                    if (vm.parqueaderos.length == 0) {
+                        alertify.error(response.data.error);
                     } else {
-                        alertify.error(response.data.mensaje);
+                        vm.id_parqueadero = vm.parqueaderos[0].id_parqueadero;
                     }
-
                 })
                 .catch(function(error) {
                     console.log(error);
@@ -152,11 +49,22 @@
                 });
         }
 
-        function limpiar() {
-            $('#hora_inicio').val('');
-            $('#hora_fin').val('');
-            vm.horario = {};
+        function consultarPorLapsos() {
+            var fecha_inicial = $('#fecha_inicial').val();
+            var fecha_final = $('#fecha_final').val();
+            VehiculosPorLapsosService.get(user.id_usuario, vm.id_parqueadero, fecha_inicial, fecha_final, user.token)
+                .then(function(response) {
+                    vm.vehiculosPorLapsos = response.data.reporte;
+                    if (vm.vehiculosPorLapsos.length == 0) {
+                        alertify.error('No hay datos para mostrar.');
+                    }
+                })
+                .catch(function(error) {
+                    alertify.error('Error: ' + error.statusText);
+                });
         }
+
+        function limpiar() {}
 
         activate();
     }

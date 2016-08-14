@@ -5,9 +5,9 @@
         .module('app')
         .controller('IngresosPorDiaController', IngresosPorDiaController);
 
-    IngresosPorDiaController.$inject = ['ParqueaderosService', 'IngresosPorDiaService'];
+    IngresosPorDiaController.$inject = ['IngresosPorDiaService', 'ParqueaderosService'];
 
-    function IngresosPorDiaController(ParqueaderosService, IngresosPorDiaService) {
+    function IngresosPorDiaController(IngresosPorDiaService, ParqueaderosService) {
         console.log("Entró a IngresosPorDiaController");
         var vm = this;
         var options = {
@@ -63,7 +63,6 @@
                     alertify.error(error.statusText);
                 });
         }
-
 
         function limpiar() {}
 

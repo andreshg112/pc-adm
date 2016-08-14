@@ -3,48 +3,19 @@
 
     angular
         .module('app')
-        .service('HorariosService', HorariosService);
+        .service('VehiculosPorLapsosService', VehiculosPorLapsosService);
 
-    HorariosService.$inject = ['$http'];
+    VehiculosPorLapsosService.$inject = ['$http'];
 
-    function HorariosService($http) {
-        this.getAll = getAll;
-        this.delete = dispose;
-        this.post = post;
-        this.postAsistencia = postAsistencia;
-        this.put = put;
+    function VehiculosPorLapsosService($http) {
+        this.get = get;
 
         ////////////////
 
-        var uri = "api/public/horarios";
+        var uri = 'http://www.parkingcontrolapp.co/ParkingControlServer_Barranquilla/public/api/reporte_rango_fecha';
 
-        function getAll() {
-            console.log("get_all");
-            var req = $http.get(uri);
-            return req;
-        }
-
-        function dispose(registro) {
-            console.log("delete");
-            var req = $http.delete(uri + "/" + registro.id);
-            return req;
-        }
-
-        function post(registro) {
-            console.log("post");
-            var req = $http.post(uri, registro);
-            return req;
-        }
-
-        function postAsistencia(id, registro) {
-            console.log("postAsistencia");
-            var req = $http.post(uri + "/" + id + "/asistencias", registro);
-            return req;
-        }
-
-        function put(registro) {
-            console.log("put");
-            var req = $http.put(uri + "/" + registro.id, registro);
+        function get(id_admin, id_parqueadero, fecha_inicial, fecha_final, token) {
+            var req = $http.get(uri + '/id_admin/' + id_admin + '/id_parqueadero/' + id_parqueadero + '/fecha_inicial/' + fecha_inicial + '/fecha_final/' + fecha_final + '?token=' + token);
             return req;
         }
     }

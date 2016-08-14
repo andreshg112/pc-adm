@@ -1,0 +1,8 @@
+#vista-recibo div {
+    border-style: dotted;
+    border-width: thin
+}
+
+.modal-footer {
+    border-top: 0px;
+}

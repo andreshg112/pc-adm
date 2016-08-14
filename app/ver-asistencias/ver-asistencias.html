@@ -1,0 +1,46 @@
+<form class="form-horizontal" role="form">
+    <div id="fila-1" class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <center>
+                        <h2>Ver asistencias</h2>Asesorías UPC
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="fila-3" class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Asistencias a mis asesorías
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <tr>
+                                <th>#</th>
+                                <th>Materia</th>
+                                <th>Alumno</th>
+                                <th>Documento de identidad</th>
+                                <th>Programa</th>
+                                <th>Temas tutoriados</th>
+                                <th>Fecha</th>
+                            </tr>
+                            <tr ng-repeat="asistencia in vm.asistencias | filter:vm.asistencia track by $index">
+                                <td>{{$index + 1}}</td>
+                                <td>{{asistencia.horario.materia.nombre}}</td>
+                                <td>{{vm.getNombreCompletoUser(asistencia.alumno)}}</td>
+                                <td>{{asistencia.alumno.numero_documento}}</td>
+                                <td>{{asistencia.alumno.programa.nombre}}</td>
+                                <td>{{asistencia.temas_tutoriados}}</td>
+                                <td>{{asistencia.fecha}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

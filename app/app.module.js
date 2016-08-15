@@ -3,5 +3,6 @@
 
     angular.module('app', [
         'ngRoute',
+        'ngTable'
     ]);
 })();

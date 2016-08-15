@@ -4,7 +4,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <center>
-                        <h2>Vehículos ingresados por día</h2>
+                        <h3>Vehículos ingresados por día</h3>
                     </center>
                 </div>
             </div>
@@ -13,7 +13,9 @@
     <div id="fila-2" class="row">
         <div class="col-sm-12">
             <div class="panel panel-default">
-                <div class="panel-heading">Datos</div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">Datos</h3>
+                </div>
                 <div class="panel-body">
                     <div id="fila-2-1" class="row">
                         <div class="col-sm-6">
@@ -44,11 +46,11 @@
         <div class="col-sm-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Vehículos
+                    <h3 class="panel-title">Vehículos</h3>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-striped">
+                        <!--<table class="table table-bordered table-hover table-striped">
                             <tr>
                                 <th>Vehículo</th>
                                 <th>Placa</th>
@@ -67,8 +69,33 @@
                                 <td>{{vehiculo.estadia}}</td>
                                 <td>{{vehiculo.estado_parqueo.capitalize()}}</td>
                             </tr>
-                        </table>
+                        </table>-->
                     </div>
+                    <table ng-table="vm.tableParams" class="table table-bordered table-hover table-striped" show-filter="true">
+                        <tr ng-repeat="vehiculo in $data">
+                            <td title="'Vehículo'" filter="{ nombre_vehiculo: 'text'}" sortable="'nombre_vehiculo'">
+                                {{vehiculo.nombre_vehiculo}}
+                            </td>
+                            <td title="'Placa'" filter="{ placa: 'text'}" sortable="'placa'">
+                                {{vehiculo.placa}}
+                            </td>
+                            <td title="'Valor'" filter="{ valor_pagado: 'text'}" sortable="'valor_pagado'">
+                                {{vehiculo.valor_pagado}}
+                            </td>
+                            <td title="'Ingreso'" filter="{ fecha_ingreso: 'text'}" sortable="'fecha_ingreso'">
+                                {{vehiculo.fecha_ingreso}}
+                            </td>
+                            <td title="'Salida'" filter="{ fecha_salida: 'text'}" sortable="'fecha_salida'">
+                                {{vehiculo.fecha_salida}}
+                            </td>
+                            <td title="'Estadía'" filter="{ estadia: 'text'}" sortable="'estadia'">
+                                {{vehiculo.estadia}}
+                            </td>
+                            <td title="'Estado'" filter="{ estado_parqueo: 'text'}" sortable="'estado_parqueo'">
+                                {{vehiculo.estado_parqueo.capitalize()}}
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>

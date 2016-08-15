@@ -5,9 +5,9 @@
         .module('app')
         .controller('VehiculosPorDiaController', VehiculosPorDiaController);
 
-    VehiculosPorDiaController.$inject = ['VehiculosPorDiaService'];
+    VehiculosPorDiaController.$inject = ['VehiculosPorDiaService', 'NgTableParams'];
 
-    function VehiculosPorDiaController(VehiculosPorDiaService) {
+    function VehiculosPorDiaController(VehiculosPorDiaService, NgTableParams) {
         var vm = this;
         var options = {
             namespace: 'pc-adm',
@@ -37,6 +37,7 @@
                 .then(function(response) {
                     if (!response.data.error) {
                         vm.vehiculosPorDia = response.data.listado_vehiculos;
+                        vm.tableParams = new NgTableParams({}, { dataset: vm.vehiculosPorDia });
                         if (vm.vehiculosPorDia.length == 0) {
                             alertify.error('No hay registros.');
                         }

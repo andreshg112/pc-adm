@@ -4,7 +4,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <center>
-                        <h3>Ingresos por día</h3>Parking Control
+                        <h3>Ingresos por día</h3>
                     </center>
                 </div>
             </div>
@@ -13,14 +13,16 @@
     <div id="fila-2" class="row">
         <div class="col-sm-12">
             <div class="panel panel-default">
-                <div class="panel-heading">Ingresos</div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">Ingresos</h3>
+                </div>
                 <div class="panel-body">
                     <div id="fila-2-1" class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">Parqueadero:</label>
                                 <div class="col-sm-8">
-                                    <select name="id_parqueadero" id="id_parqueadero" class="form-control" ng-model="index.id_parqueadero" ng-options="parqueadero.id_parqueadero as parqueadero.nombre_parqueadero for parqueadero in index.parqueaderos" required>
+                                    <select name="id_parqueadero" id="id_parqueadero" class="form-control has-warning" ng-model="index.id_parqueadero" ng-options="parqueadero.id_parqueadero as parqueadero.nombre_parqueadero for parqueadero in index.parqueaderos" required>
                                         <option selected value>Seleccione un parqueadero</option>
                                     </select>
                                 </div>
@@ -40,7 +42,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Vehículos monetizados:</label>
                                 <div class="col-sm-8">
-                                    <input id="numero_vehiculos" class="form-control" type="text" ng-model="vm.ingresos.numero_vehiculos" disabled>
+                                    <input id="numero_vehiculos" class="form-control has-warning" type="text" ng-model="vm.ingresos.numero_vehiculos" disabled>
                                 </div>
                             </div>
                         </div>
@@ -48,7 +50,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Dinero obtenido:</label>
                                 <div class="col-sm-8">
-                                    <input id="total_dia" class="form-control" type="text" value="{{vm.ingresos.total_dia | currency : '$ ' : 0}}" disabled>
+                                    <input id="total_dia" class="form-control has-warning" type="text" value="{{vm.ingresos.total_dia | currency : '$ ' : 0}}" disabled>
                                 </div>
                             </div>
                         </div>

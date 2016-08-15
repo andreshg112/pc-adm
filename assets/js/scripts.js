@@ -70,5 +70,12 @@ function range(start, stop, step) {
  * @param {Date} fecha
  */
 function fechaYYYYMMDD(fecha) {
-    return fecha.toISOString().slice(0, 10).replace(/-/g, "-");
+    var anio = fecha.getFullYear();
+    var mes = fecha.getMonth() + 1;
+    var dia = fecha.getDate();
+    var ymd = anio.toString() + '-';
+    ymd += mes < 10 ? '0' + mes : mes;
+    ymd += '-';
+    ymd += dia < 10 ? '0' + dia : dia;
+    return ymd;
 }

@@ -5,10 +5,9 @@
         .module('app')
         .controller('IndexController', IndexController);
 
-    IndexController.$inject = ['$location'];
+    IndexController.$inject = ['$location', 'ParqueaderosService'];
 
-    function IndexController($location) {
-        console.log("Entró a IndexController");
+    function IndexController($location, ParqueaderosService) {
         var vm = this;
         var options = {
             namespace: 'pc-adm',
@@ -19,14 +18,31 @@
         vm.cerrarSesion = cerrarSesion;
         vm.getNombreCompletoUser = getNombreCompletoUser;
         vm.getTipoUsuario = getTipoUsuario;
-        vm.user = {};
+        vm.parqueaderos = [];
+        var user = {};
 
         function activate() {
             if (basil.get('user') == null) {
                 location.href = 'login.html';
             } else {
-                vm.user = basil.get('user');
+                user = basil.get('user');
+                cargarParqueaderos();
             }
+        }
+
+        function cargarParqueaderos() {
+            ParqueaderosService.getAll(user.id_usuario, user.token)
+                .then(function(response) {
+                    vm.parqueaderos = response.data.reporte;
+                    if (vm.parqueaderos.length == 0) {
+                        alertify.error('Error: ' + response.data.error);
+                    } else {
+                        vm.id_parqueadero = vm.parqueaderos[0].id_parqueadero;
+                    }
+                })
+                .catch(function(error) {
+                    alertify.error('Error: ' + error.statusText);
+                });
         }
 
         function cerrarSesion() {
@@ -35,12 +51,12 @@
         }
 
         function getTipoUsuario() {
-            return vm.user.rol;
+            return user.rol;
         }
 
         function getNombreCompletoUser() {
-            var nombreCompleto = vm.user.nombres;
-            nombreCompleto += vm.user.apellidos != null && vm.user.apellidos != "" ? " " + vm.user.apellidos : "";
+            var nombreCompleto = user.nombres;
+            nombreCompleto += user.apellidos != null && user.apellidos != "" ? " " + user.apellidos : "";
             return nombreCompleto;
         }
 

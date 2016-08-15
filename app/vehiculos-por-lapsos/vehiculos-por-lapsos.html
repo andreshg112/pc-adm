@@ -1,5 +1,5 @@
-<form class="form-horizontal" role="form" ng-submit="vm.consultarPorLapsos()">
-    <!--<div id="fila-1" class="row">
+<form class="form-horizontal" role="form" ng-submit="vm.consultarPorLapsos(index.id_parqueadero)">
+    <div id="fila-1" class="row">
         <div class="col-sm-12">
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -9,7 +9,7 @@
                 </div>
             </div>
         </div>
-    </div>-->
+    </div>
     <div id="fila-2" class="row">
         <div class="col-sm-12">
             <div class="panel panel-default">
@@ -22,7 +22,7 @@
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">Parqueadero:</label>
                                 <div class="col-sm-8">
-                                    <select name="id_parqueadero" id="id_parqueadero" class="form-control" ng-model="vm.id_parqueadero" ng-options="parqueadero.id_parqueadero as parqueadero.nombre_parqueadero for parqueadero in vm.parqueaderos" required>
+                                    <select name="id_parqueadero" id="id_parqueadero" class="form-control" ng-model="index.id_parqueadero" ng-options="parqueadero.id_parqueadero as parqueadero.nombre_parqueadero for parqueadero in index.parqueaderos" required>
                                         <option selected value>Seleccione un parqueadero</option>
                                     </select>
                                 </div>

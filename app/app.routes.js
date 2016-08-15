@@ -24,9 +24,9 @@
                         controller: 'BuscarHorariosController',
                         controllerAs: 'horariosVm'
                     })
-                    .when('/visualizar-usuarios', {
-                        templateUrl: 'app/visualizar-usuarios/visualizar-usuarios.html',
-                        controller: 'VisualizarUsuariosController',
+                    .when('/vehiculos-por-dia', {
+                        templateUrl: 'app/vehiculos-por-dia/vehiculos-por-dia.html',
+                        controller: 'VehiculosPorDiaController',
                         controllerAs: 'vm'
                     })
                     .when('/calificar-tutores', {

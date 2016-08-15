@@ -19,7 +19,6 @@
         //Declaraciones de variables públicas en orden alfabético.
         vm.consultarPorLapsos = consultarPorLapsos;
         vm.limpiar = limpiar;
-        vm.parqueaderos = [];
         vm.vehiculosPorLapsos = [];
 
         //Funciones, en orden alfabético
@@ -29,30 +28,13 @@
             } else {
                 user = basil.get('user');
                 vm.limpiar();
-                cargarParqueaderos();
             }
         }
 
-        function cargarParqueaderos() {
-            ParqueaderosService.getAll(user.id_usuario, user.token)
-                .then(function(response) {
-                    vm.parqueaderos = response.data.reporte;
-                    if (vm.parqueaderos.length == 0) {
-                        alertify.error(response.data.error);
-                    } else {
-                        vm.id_parqueadero = vm.parqueaderos[0].id_parqueadero;
-                    }
-                })
-                .catch(function(error) {
-                    console.log(error);
-                    alertify.error(error.statusText);
-                });
-        }
-
-        function consultarPorLapsos() {
+        function consultarPorLapsos(id_parqueadero) {
             var fecha_inicial = $('#fecha_inicial').val();
             var fecha_final = $('#fecha_final').val();
-            VehiculosPorLapsosService.get(user.id_usuario, vm.id_parqueadero, fecha_inicial, fecha_final, user.token)
+            VehiculosPorLapsosService.get(user.id_usuario, id_parqueadero, fecha_inicial, fecha_final, user.token)
                 .then(function(response) {
                     vm.vehiculosPorLapsos = response.data.reporte;
                     if (vm.vehiculosPorLapsos.length == 0) {

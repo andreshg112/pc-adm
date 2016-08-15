@@ -5,10 +5,9 @@
         .module('app')
         .controller('IngresosPorDiaController', IngresosPorDiaController);
 
-    IngresosPorDiaController.$inject = ['IngresosPorDiaService', 'ParqueaderosService'];
+    IngresosPorDiaController.$inject = ['IngresosPorDiaService'];
 
-    function IngresosPorDiaController(IngresosPorDiaService, ParqueaderosService) {
-        console.log("Entró a IngresosPorDiaController");
+    function IngresosPorDiaController(IngresosPorDiaService) {
         var vm = this;
         var options = {
             namespace: 'pc-adm',
@@ -20,7 +19,6 @@
         //Declaraciones de variables públicas en orden alfabético.
         vm.cargarIngresos = cargarIngresos;
         vm.limpiar = limpiar;
-        vm.parqueaderos = [];
 
         //Funciones, en orden alfabético
         function activate() {
@@ -29,33 +27,16 @@
             } else {
                 user = basil.get('user');
                 vm.limpiar();
-                cargarParqueaderos();
             }
         }
 
-        function cargarIngresos() {
+        function cargarIngresos(id_parqueadero) {
             var hoy = new Date();
-            IngresosPorDiaService.get(user.id_usuario, vm.id_parqueadero, fechaYYYYMMDD(hoy), user.token)
+            IngresosPorDiaService.get(user.id_usuario, id_parqueadero, fechaYYYYMMDD(hoy), user.token)
                 .then(function(response) {
                     vm.ingresos = response.data;
                     if (vm.ingresos.error) {
                         alertify.error("¡Error!");
-                    }
-                })
-                .catch(function(error) {
-                    console.log(error);
-                    alertify.error(error.statusText);
-                });
-        }
-
-        function cargarParqueaderos() {
-            ParqueaderosService.getAll(user.id_usuario, user.token)
-                .then(function(response) {
-                    vm.parqueaderos = response.data.reporte;
-                    if (vm.parqueaderos.length == 0) {
-                        alertify.error(response.data.error);
-                    } else {
-                        vm.id_parqueadero = vm.parqueaderos[0].id_parqueadero;
                     }
                 })
                 .catch(function(error) {

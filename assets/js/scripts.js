@@ -3,7 +3,7 @@ $(document).on("focus", ".datepicker", function() {
         dateFormat: 'yy-mm-dd',
     });
 });
-//
+
 $(document).on("focus", ".timepicker", function() {
     $('input.timepicker').timepicker({
         timeFormat: 'HH:mm:ss',

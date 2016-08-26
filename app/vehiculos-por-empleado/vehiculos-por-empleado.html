@@ -1,0 +1,97 @@
+<form class="form-horizontal" role="form">
+    <div id="fila-1" class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <center>
+                        <h3>Vehículos ingresados por empleado</h3>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="fila-2" class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Datos</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="fila-2-1" class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Parqueadero:</label>
+                                <div class="col-sm-8">
+                                    <select name="id_parqueadero" id="id_parqueadero" class="form-control" ng-model="index.id_parqueadero" ng-options="parqueadero.id_parqueadero as parqueadero.nombre_parqueadero for parqueadero in index.parqueaderos" ng-change="vm.cargarPorDia(index.id_parqueadero)"
+                                        required>
+                                        <option selected value>Seleccione un parqueadero</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Empleado:</label>
+                                <div class="col-sm-8">
+                                    <select name="id_empleado" id="id_empleado" class="form-control" ng-model="index.id_empleado" ng-options="empleado.id_empleado as empleado.nombre_empleado for empleado in index.empleados" ng-change="vm.cargarPorDia(index.id_empleado)" required>
+                                        <option selected value>Seleccione un empleado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="fila-2-2" class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Fecha ingreso:</label>
+                                <div class="col-sm-8">
+                                    <input id="fecha_ingreso" class="form-control datepicker" type="text" ng-model="vm.fecha_ingreso" ng-change="vm.cargarPorDia(index.id_parqueadero)" required="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Fecha salida:</label>
+                                <div class="col-sm-8">
+                                    <input id="fecha_salida" class="form-control datepicker" type="text" ng-model="vm.fecha_salida" ng-change="vm.cargarPorDia(index.id_parqueadero)" required="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="fila-3" class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Vehículos</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table ng-table="vm.tableParams" class="table table-bordered table-hover table-striped" show-filter="true">
+                            <tr ng-repeat="vehiculo in $data">
+                                <td title="'Vehículo'" filter="{ nombre_vehiculo: 'text'}" sortable="'nombre_vehiculo'">
+                                    {{vehiculo.nombre_vehiculo}}
+                                </td>
+                                <td title="'Placa'" filter="{ placa: 'text'}" sortable="'placa'">
+                                    {{vehiculo.placa}}
+                                </td>
+                                <td title="'Ingreso'" filter="{ fecha_ingreso: 'text'}" sortable="'fecha_ingreso'">
+                                    {{vehiculo.fecha_ingreso}}
+                                </td>
+                                <td title="'Salida'" filter="{ fecha_salida: 'text'}" sortable="'fecha_salida'">
+                                    {{vehiculo.fecha_salida}}
+                                </td>
+                                <td title="'Valor'" filter="{ valor_pagado: 'text'}" sortable="'valor_pagado'">
+                                    {{vehiculo.valor_pagado}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

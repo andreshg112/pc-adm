@@ -24,6 +24,11 @@
                         controller: 'VehiculosPorDiaController',
                         controllerAs: 'vm'
                     })
+                    .when('/vehiculos-por-empleado', {
+                        templateUrl: 'app/vehiculos-por-empleado/vehiculos-por-empleado.html',
+                        controller: 'VehiculosPorEmpleadoController',
+                        controllerAs: 'vm'
+                    })
                     .otherwise({
                         redirectTo: '/'
                     });

@@ -24,9 +24,9 @@
                         controller: 'VehiculosPorDiaController',
                         controllerAs: 'vm'
                     })
-                    .when('/vehiculos-por-empleado', {
-                        templateUrl: 'app/vehiculos-por-empleado/vehiculos-por-empleado.html',
-                        controller: 'VehiculosPorEmpleadoController',
+                    .when('/ingresados-por-lapsos', {
+                        templateUrl: 'app/ingresados-por-lapsos/ingresados-por-lapsos.html',
+                        controller: 'IngresadosPorLapsosController',
                         controllerAs: 'vm'
                     })
                     .otherwise({

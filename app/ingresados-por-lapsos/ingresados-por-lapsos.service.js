@@ -3,11 +3,11 @@
 
     angular
         .module('app')
-        .service('VehiculosPorEmpleadoService', VehiculosPorEmpleadoService);
+        .service('IngresadosPorLapsosService', IngresadosPorLapsosService);
 
-    VehiculosPorEmpleadoService.$inject = ['$http'];
+    IngresadosPorLapsosService.$inject = ['$http'];
 
-    function VehiculosPorEmpleadoService($http) {
+    function IngresadosPorLapsosService($http) {
         this.get = get;
 
         ////////////////

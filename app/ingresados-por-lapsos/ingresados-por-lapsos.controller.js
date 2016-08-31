@@ -3,11 +3,11 @@
 
     angular
         .module('app')
-        .controller('VehiculosPorEmpleadoController', VehiculosPorEmpleadoController);
+        .controller('IngresadosPorLapsosController', IngresadosPorLapsosController);
 
-    VehiculosPorEmpleadoController.$inject = ['VehiculosPorEmpleadoService', 'NgTableParams'];
+    IngresadosPorLapsosController.$inject = ['IngresadosPorLapsosService', 'NgTableParams'];
 
-    function VehiculosPorEmpleadoController(VehiculosPorEmpleadoService, NgTableParams) {
+    function IngresadosPorLapsosController(IngresadosPorLapsosService, NgTableParams) {
         var vm = this;
         var options = {
             namespace: 'pc-adm',
@@ -39,7 +39,7 @@
                 vm.limpiar();
                 return false;
             }
-            VehiculosPorEmpleadoService.get(user.id_usuario, id_parquedero, fecha_inicial, fecha_final, user.token)
+            IngresadosPorLapsosService.get(user.id_usuario, id_parquedero, fecha_inicial, fecha_final, user.token)
                 .then(function(response) {
                     if (!response.data.error) {
                         vm.vehiculos = response.data.reporte;

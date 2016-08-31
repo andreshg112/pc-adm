@@ -17,9 +17,9 @@
         var user = {};
 
         //Declaraciones de variables públicas en orden alfabético.
-        vm.cargarPorDia = cargarPorDia;
+        vm.cargar = cargar;
         vm.limpiar = limpiar;
-        vm.vehiculosPorDia = [];
+        vm.vehiculos = [];
 
         //Funciones, en orden alfabético
         function activate() {
@@ -31,14 +31,20 @@
             }
         }
 
-        function cargarPorDia(id_parquedero) {
-            var fecha = $('#fecha').val();
-            VehiculosPorEmpleadoService.get(user.id_usuario, id_parquedero, fecha, user.token)
+        function cargar(id_parquedero) {
+            vm.limpiar();
+            var fecha_inicial = $('#fecha_inicial').val();
+            var fecha_final = $('#fecha_final').val();
+            if (!id_parquedero || !fecha_inicial || !fecha_final) {
+                vm.limpiar();
+                return false;
+            }
+            VehiculosPorEmpleadoService.get(user.id_usuario, id_parquedero, fecha_inicial, fecha_final, user.token)
                 .then(function(response) {
                     if (!response.data.error) {
-                        vm.vehiculosPorDia = response.data.listado_vehiculos;
-                        vm.tableParams = new NgTableParams({}, { dataset: vm.vehiculosPorDia });
-                        if (vm.vehiculosPorDia.length == 0) {
+                        vm.vehiculos = response.data.reporte;
+                        vm.tableParams = new NgTableParams({}, { dataset: vm.vehiculos });
+                        if (vm.vehiculos.length == 0) {
                             alertify.error('No hay registros.');
                         }
                     } else {
@@ -52,7 +58,8 @@
         }
 
         function limpiar() {
-            vm.usuario = {};
+            vm.vehiculos = [];
+            vm.tableParams = new NgTableParams({}, { dataset: vm.vehiculos });
         }
 
         activate();

@@ -4,7 +4,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <center>
-                        <h3>Vehículos ingresados por empleado</h3>
+                        <h3>Vehículos ingresados por lapsos</h3>
                     </center>
                 </div>
             </div>
@@ -22,19 +22,9 @@
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">Parqueadero:</label>
                                 <div class="col-sm-8">
-                                    <select name="id_parqueadero" id="id_parqueadero" class="form-control" ng-model="index.id_parqueadero" ng-options="parqueadero.id_parqueadero as parqueadero.nombre_parqueadero for parqueadero in index.parqueaderos" ng-change="vm.cargarPorDia(index.id_parqueadero)"
+                                    <select name="id_parqueadero" id="id_parqueadero" class="form-control" ng-model="index.id_parqueadero" ng-options="parqueadero.id_parqueadero as parqueadero.nombre_parqueadero for parqueadero in index.parqueaderos" ng-change="vm.cargar(index.id_parqueadero)"
                                         required>
                                         <option selected value>Seleccione un parqueadero</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label">Empleado:</label>
-                                <div class="col-sm-8">
-                                    <select name="id_empleado" id="id_empleado" class="form-control" ng-model="index.id_empleado" ng-options="empleado.id_empleado as empleado.nombre_empleado for empleado in index.empleados" ng-change="vm.cargarPorDia(index.id_empleado)" required>
-                                        <option selected value>Seleccione un empleado</option>
                                     </select>
                                 </div>
                             </div>
@@ -45,7 +35,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Fecha ingreso:</label>
                                 <div class="col-sm-8">
-                                    <input id="fecha_ingreso" class="form-control datepicker" type="text" ng-model="vm.fecha_ingreso" ng-change="vm.cargarPorDia(index.id_parqueadero)" required="">
+                                    <input id="fecha_inicial" class="form-control datepicker" type="text" ng-model="vm.fecha_inicial" ng-change="vm.cargar(index.id_parqueadero)" required="">
                                 </div>
                             </div>
                         </div>
@@ -53,7 +43,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Fecha salida:</label>
                                 <div class="col-sm-8">
-                                    <input id="fecha_salida" class="form-control datepicker" type="text" ng-model="vm.fecha_salida" ng-change="vm.cargarPorDia(index.id_parqueadero)" required="">
+                                    <input id="fecha_final" class="form-control datepicker" type="text" ng-model="vm.fecha_final" ng-change="vm.cargar(index.id_parqueadero)" required="">
                                 </div>
                             </div>
                         </div>

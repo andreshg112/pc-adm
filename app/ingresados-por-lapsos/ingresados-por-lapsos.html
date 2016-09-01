@@ -33,18 +33,37 @@
                     <div id="fila-2-2" class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="control-label col-sm-4">Fecha ingreso:</label>
+                                <label class="control-label col-sm-4">Fecha inicial:</label>
                                 <div class="col-sm-8">
-                                    <input id="fecha_inicial" class="form-control datepicker" type="text" ng-model="vm.fecha_inicial" ng-change="vm.cargar(index.id_parqueadero)" required="">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="javascript:;">
+                                            <div class="input-group">
+                                                <input id="fecha_inicial" type="text" class="form-control" data-date-time-input="YYYY-MM-DD HH:mm" data-ng-model="vm.fecha_inicial" required>
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            </div>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                            <datetimepicker data-ng-model="vm.fecha_inicial" data-datetimepicker-config="{ dropdownSelector: '#dropdown1' }" ng-change="vm.cargar(index.id_parqueadero)"></datetimepicker>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                            <!--<input ui-timepicker ng-model="someDateObject">-->
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="control-label col-sm-4">Fecha salida:</label>
+                                <label class="control-label col-sm-4">Fecha final:</label>
                                 <div class="col-sm-8">
-                                    <input id="fecha_final" class="form-control datepicker" type="text" ng-model="vm.fecha_final" ng-change="vm.cargar(index.id_parqueadero)" required="">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="javascript:;">
+                                            <div class="input-group">
+                                                <input id="fecha_final" type="text" class="form-control" data-date-time-input="YYYY-MM-DD HH:mm" data-ng-model="vm.fecha_final" required>
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            </div>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                            <datetimepicker data-ng-model="vm.fecha_final" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }" ng-change="vm.cargar(index.id_parqueadero)"></datetimepicker>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -57,7 +76,7 @@
         <div class="col-sm-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Vehículos</h3>
+                    <h3 class="panel-title">Total: {{vm.total | currency : '$ ' : 0}}</h3>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">

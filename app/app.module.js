@@ -4,6 +4,8 @@
     angular.module('app', [
         'ngRoute',
         'ngTable',
-        'ui.timepicker'
+        'ui.bootstrap.datetimepicker',
+        'ui.dateTimeInput',
+        'ngLoadingSpinner'
     ]);
 })();

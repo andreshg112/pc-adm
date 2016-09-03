@@ -12,9 +12,8 @@
 
         ////////////////
 
-        var uri = 'http://www.parkingcontrolapp.co/ParkingControlServer_Barranquilla/public/api/admin_count_parqueadero/id_admin';
-
         function getAll(id_admin, token) {
+            var uri = sessionStorage.api + '/admin_count_parqueadero/id_admin';
             var req = $http.get(uri + '/' + id_admin + "?token=" + token);
             return req;
         }

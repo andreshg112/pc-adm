@@ -8,7 +8,6 @@
     LoginController.$inject = ['UsersService'];
 
     function LoginController(UsersService) {
-        console.log("Entró a LoginController");
         var vm = this;
         var options = {
             namespace: 'pc-adm',
@@ -17,6 +16,14 @@
         var basil = new window.Basil(options);
 
         //Declaraciones de variables públicas en orden alfabético.
+        vm.ciudades = [{
+            nombre: 'Barranquilla',
+            url: 'http://www.parkingcontrolapp.co/ParkingControlServer_Barranquilla/public/api'
+        }, {
+            nombre: 'Valledupar',
+            url: 'http://www.parkingcontrolapp.co/ParkingControlServer_Jama/public/api'
+        }];
+        vm.cambiarApi = cambiarApi;
         vm.iniciarSesion = iniciarSesion;
         vm.limpiar = limpiar;
 
@@ -25,9 +32,12 @@
             vm.limpiar();
         }
 
+        function cambiarApi(ciudad) {
+            sessionStorage.api = ciudad.url;
+        }
+
         function iniciarSesion() {
             UsersService.login(vm.usuarioInicioSesion).then(function(response) {
-                    console.log(response);
                     if (!response.data.error) {
                         basil.set('user', response.data);
                         alertify.success("Bienvenido " + response.data.nombres + " " + response.data.apellidos, 3);
@@ -44,7 +54,6 @@
                     }
                 })
                 .catch(function(error) {
-                    console.log(error);
                     alertify.error(error.statusText);
                 });
         }

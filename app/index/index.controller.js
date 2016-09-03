@@ -47,6 +47,7 @@
 
         function cerrarSesion() {
             basil.remove('user');
+            sessionStorage.removeItem('api');
             location.href = 'login.html';
         }
 

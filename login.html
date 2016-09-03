@@ -40,6 +40,11 @@
                             <div class="col-lg-12">
                                 <form id="login-form" ng-submit="login.iniciarSesion()" role="form" style="display: block;">
                                     <div class="form-group">
+                                        <select class="form-control" ng-model="login.ciudad" ng-options="ciudad as ciudad.nombre for ciudad in login.ciudades" ng-change="login.cambiarApi(login.ciudad)" required>
+                                            <option selected value>Seleccione una ciudad</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
                                         <!--<label for="email_login" class="control-label col-sm-3">Email</label>-->
                                         <!--<div class="col-sm-9">-->
                                         <input type="text" name="username" id="username" ng-model="login.usuarioInicioSesion.username" tabindex="1" class="form-control" placeholder="Usuario" value="" required>

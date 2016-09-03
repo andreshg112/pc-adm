@@ -12,9 +12,8 @@
 
         ////////////////
 
-        var uri = 'http://www.parkingcontrolapp.co/ParkingControlServer_Barranquilla/public/api/vehiculos_fecha';
-
         function get(id_administrador, id_parqueadero, fecha, token) {
+            var uri = sessionStorage.api + '/vehiculos_fecha';
             var req = $http.get(uri + '/id_administrador/' + id_administrador + '/id_parqueadero/' + id_parqueadero + '/fecha/' + fecha + '?token=' + token);
             return req;
         }

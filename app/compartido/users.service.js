@@ -12,10 +12,8 @@
 
         ////////////////
 
-        var uri = "http://www.parkingcontrolapp.co/ParkingControlServer_Barranquilla/public/api/authenticate";
-
         function login(registro) {
-            console.log("login");
+            var uri = sessionStorage.api + "/authenticate";
             var req = $http.post(uri, registro);
             return req;
         }
